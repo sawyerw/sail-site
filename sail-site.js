@@ -5,6 +5,7 @@
 import { LitElement, html, css } from "lit";
 import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
 import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
+import "./wf-top-nav.js";
 
 /**
  * `sail-site`
@@ -32,6 +33,9 @@ export class SailSite extends DDDSuper(I18NMixin(LitElement)) {
         new URL("./locales/sail-site.ar.json", import.meta.url).href +
         "/../",
     });
+    this.addEventListener("page-change", (e) => {
+    this.currentPage = e.detail.page; // use this to show/hide sections
+    });
   }
 
   // Lit reactive properties
@@ -41,6 +45,7 @@ export class SailSite extends DDDSuper(I18NMixin(LitElement)) {
       title: { type: String },
     };
   }
+
 
   // Lit scoped styles
   static get styles() {
@@ -64,12 +69,13 @@ export class SailSite extends DDDSuper(I18NMixin(LitElement)) {
 
   // Lit render the HTML
   render() {
-    return html`
-<div class="wrapper">
-  <h3><span>${this.t.title}:</span> ${this.title}</h3>
-  <slot></slot>
-</div>`;
-  }
+  return html`
+    <wf-top-nav logo-src="./assets/Windward_Force_Logo_Red.png"></wf-top-nav>
+    <div class="wrapper">
+      <slot></slot>
+    </div>
+  `;
+}
 
   /**
    * haxProperties integration via file reference
