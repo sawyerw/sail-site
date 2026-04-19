@@ -10,7 +10,6 @@ import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
  *
  * Yellow bar with logo on left, nav links on right.
  * Logo click navigates to Home. Nav links show active state
- * and a wavy wave underline on hover/active.
  *
  * @demo index.html
  * @element wf-top-nav
@@ -79,7 +78,6 @@ export class WfTopNav extends DDDSuper(LitElement) {
       css`
         :host {
           display: block;
-          position: sticky;
           top: var(--ddd-spacing-0);
           z-index: 1000;
           width: 100%;
@@ -111,7 +109,7 @@ export class WfTopNav extends DDDSuper(LitElement) {
         .logo-btn {
           background: none;
           border: none;
-          padding: 0;
+          padding: var(--ddd-spacing-0);
           cursor: pointer;
           display: flex;
           align-items: center;
@@ -145,8 +143,6 @@ export class WfTopNav extends DDDSuper(LitElement) {
           font-size: var(--ddd-font-size-m);
           font-weight: var(--ddd-font-weight-bold);
           padding: var(--ddd-spacing-1) 0;
-          /* Reserve space below text so the wave doesn't shift layout */
-          padding-bottom: 10px;
           transition: color 0.2s ease;
         }
 

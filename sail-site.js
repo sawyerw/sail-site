@@ -5,7 +5,8 @@
 import { LitElement, html, css } from "lit";
 import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
 import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
-import "./wf-top-nav.js";
+import "./components/wf-top-nav.js";
+import "./components/wf-footer.js";
 
 /**
  * `sail-site`
@@ -74,6 +75,7 @@ export class SailSite extends DDDSuper(I18NMixin(LitElement)) {
     <div class="wrapper">
       <slot></slot>
     </div>
+    <wf-footer></wf-footer>
   `;
 }
 
