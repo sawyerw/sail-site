@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "id": "wf-page-home",
+      "indent": "0",
+      "location": "wf-home-page.js",
+      "slug": "home",
+      "order": "0",
+      "parent": null,
+      "title": "Home",
+      "metadata": {}
+    },
+    {
+      "id": "wf-page-teams",
+      "indent": "0",
+      "location": "wf-teams-page.js",
+      "slug": "teams",
+      "order": "1",
+      "parent": null,
+      "title": "Teams",
+      "metadata": {}
+    },
+    {
+      "id": "wf-page-regattas",
+      "indent": "0",
+      "location": "wf-regattas-page.js",
+      "slug": "regattas",
+      "order": "2",
+      "parent": null,
+      "title": "Regattas",
+      "metadata": {}
+    },
+    {
+      "id": "wf-page-programs",
+      "indent": "0",
+      "location": "wf-programs-page.js",
+      "slug": "programs",
+      "order": "3",
+      "parent": null,
+      "title": "Programs",
+      "metadata": {}
+    }
+  ]
+}
