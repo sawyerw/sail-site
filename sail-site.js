@@ -7,10 +7,18 @@ import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
 import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
 import "./components/wf-top-nav.js";
 import "./components/wf-footer.js";
+import "./components/wf-home-page.js";
+import "./components/wf-teams-page.js";
+import "./components/wf-regattas-page.js";
+import "./components/wf-programs-page.js";
 
 /**
  * `sail-site`
- * 
+ *
+ * Root shell element. Renders wf-top-nav at the top, the active page
+ * in the middle, and wf-footer at the bottom. Listens for "page-change"
+ * events bubbling up from wf-top-nav and swaps the visible page element.
+ *
  * @demo index.html
  * @element sail-site
  */
@@ -23,6 +31,7 @@ export class SailSite extends DDDSuper(I18NMixin(LitElement)) {
   constructor() {
     super();
     this.title = "";
+    this.activePage = "home";
     this.t = this.t || {};
     this.t = {
       ...this.t,
@@ -34,50 +43,96 @@ export class SailSite extends DDDSuper(I18NMixin(LitElement)) {
         new URL("./locales/sail-site.ar.json", import.meta.url).href +
         "/../",
     });
-    this.addEventListener("page-change", (e) => {
-    this.currentPage = e.detail.page; // use this to show/hide sections
-    });
   }
 
-  // Lit reactive properties
   static get properties() {
     return {
       ...super.properties,
       title: { type: String },
+      activePage: { type: String, reflect: true },
     };
   }
 
-
-  // Lit scoped styles
-  static get styles() {
-    return [super.styles,
-    css`
-      :host {
-        display: block;
-        color: var(--ddd-theme-primary);
-        background-color: var(--ddd-theme-accent);
-        font-family: var(--ddd-font-navigation);
-      }
-      .wrapper {
-        margin: var(--ddd-spacing-2);
-        padding: var(--ddd-spacing-4);
-      }
-      h3 span {
-        font-size: var(--sail-site-label-font-size, var(--ddd-font-size-s));
-      }
-    `];
+  connectedCallback() {
+    super.connectedCallback();
+    this._boundPageChange = this._handlePageChange.bind(this);
+    this.addEventListener("page-change", this._boundPageChange);
   }
 
-  // Lit render the HTML
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.removeEventListener("page-change", this._boundPageChange);
+  }
+
+  /**
+   * Receives "page-change" CustomEvent from wf-top-nav and
+   * updates activePage to swap the rendered content element.
+   */
+  _handlePageChange(e) {
+    this.activePage = e.detail.page;
+  }
+
+  static get styles() {
+    return [
+      super.styles,
+      css`
+        :host {
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+          width: 100%;
+          color: var(--ddd-theme-primary);
+          background-color: transparent;
+          font-family: var(--ddd-font-navigation);
+        }
+
+        /* Page content sits between nav and footer with no gap */
+        .page-slot {
+          flex: 1 0 auto;
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .page-slot > * {
+          flex: 1 0 auto;
+        }
+      `,
+    ];
+  }
+
   render() {
-  return html`
-    <wf-top-nav logo-src="./assets/Windward_Force_Logo_Red.png"></wf-top-nav>
-    <div class="wrapper">
-      <slot></slot>
-    </div>
-    <wf-footer></wf-footer>
-  `;
-}
+    return html`
+      <wf-top-nav
+        logo-src="./assets/Windward_Force_Logo_Red.png"
+        .activePage=${this.activePage}
+      ></wf-top-nav>
+
+      <div class="page-slot">
+        ${this._renderPage()}
+      </div>
+
+      <wf-footer></wf-footer>
+    `;
+  }
+
+  /**
+   * Returns the correct page element based on activePage.
+   * Uses an explicit switch so Lit can efficiently diff templates.
+   */
+  _renderPage() {
+    switch (this.activePage) {
+      case "teams":
+        return html`<wf-teams-page></wf-teams-page>`;
+      case "regattas":
+        return html`<wf-regattas-page></wf-regattas-page>`;
+      case "programs":
+        return html`<wf-programs-page></wf-programs-page>`;
+      case "home":
+      default:
+        return html`<wf-home-page></wf-home-page>`;
+    }
+  }
 
   /**
    * haxProperties integration via file reference

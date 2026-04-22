@@ -9,7 +9,8 @@ import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
  * `wf-top-nav`
  *
  * Yellow bar with logo on left, nav links on right.
- * Logo click navigates to Home. Nav links show active state
+ * Logo click navigates to Home. Nav links show active state.
+ * Navigation items are driven by a JSON data structure.
  *
  * @demo index.html
  * @element wf-top-nav
@@ -23,9 +24,9 @@ export class WfTopNav extends DDDSuper(LitElement) {
     super();
     this.logoSrc = "./assets/Windward_Force_Logo_Red.png";
     this.logoAlt = "Windward Force Logo";
-    // Track which page is active: "home" | "teams" | "regattas" | "programs"
     this.activePage = "home";
     this._logoHovered = false;
+    this._navItems = [];
   }
 
   static get properties() {
@@ -35,41 +36,63 @@ export class WfTopNav extends DDDSuper(LitElement) {
       logoAlt: { type: String, attribute: "logo-alt" },
       activePage: { type: String, reflect: true },
       _logoHovered: { type: Boolean, state: true },
+      _navItems: { type: Array, state: true },
     };
   }
 
-  /**
-   * Reads the URL hash and sets activePage accordingly.
-   * No hash (or empty hash) = home.
-   */
-  _handleHashChange() {
-    const hash = globalThis.location.hash.replace("#", "") || "home";
-    this.activePage = hash;
-  }
-
-  connectedCallback() {
+  async connectedCallback() {
     super.connectedCallback();
-    this._handleHashChange();
-    this._boundHashChange = this._handleHashChange.bind(this);
-    globalThis.addEventListener("hashchange", this._boundHashChange);
+    await this._loadNavItems();
   }
 
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    globalThis.removeEventListener("hashchange", this._boundHashChange);
+  /**
+   * Fetches the JSON data file and builds the nav items array,
+   * sorted by the "order" field. The home item is excluded from
+   * the rendered links (the logo handles home navigation).
+   */
+  async _loadNavItems() {
+    try {
+      const response = await fetch(new URL("./data.json", import.meta.url));
+      const data = await response.json();
+      this._navItems = [...data.items].sort(
+        (a, b) => Number(a.order) - Number(b.order)
+      );
+    } catch (e) {
+      console.warn("wf-top-nav: could not load data.json", e);
+      this._navItems = [];
+    }
   }
 
-  _navigateTo(page) {
-    this.activePage = page;
-    // Fire a custom event so sail-site.js can swap the visible content
+  /**
+   * Dispatches a "page-change" CustomEvent with the selected page slug,
+   * and updates the active page state.
+   */
+  _handleNavClick(e, item) {
+    e.preventDefault();
+    this.activePage = item.slug;
     this.dispatchEvent(
       new CustomEvent("page-change", {
-        detail: { page },
+        detail: { page: item.slug, item },
         bubbles: true,
         composed: true,
       })
     );
-    globalThis.location.hash = page === "home" ? "" : page;
+  }
+
+  _handleLogoClick() {
+    const homeItem = this._navItems.find((i) => i.slug === "home") || {
+      slug: "home",
+      id: "wf-page-home",
+      title: "Home",
+    };
+    this.activePage = "home";
+    this.dispatchEvent(
+      new CustomEvent("page-change", {
+        detail: { page: "home", item: homeItem },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   static get styles() {
@@ -105,7 +128,6 @@ export class WfTopNav extends DDDSuper(LitElement) {
           flex-shrink: 0;
         }
 
-        /* Logo is a button so it's keyboard-accessible */
         .logo-btn {
           background: none;
           border: none;
@@ -134,7 +156,6 @@ export class WfTopNav extends DDDSuper(LitElement) {
           justify-content: flex-end;
         }
 
-        /* Base link style */
         .nav-links a {
           position: relative;
           color: #01315f;
@@ -146,25 +167,14 @@ export class WfTopNav extends DDDSuper(LitElement) {
           transition: color 0.2s ease;
         }
 
-        /* Hover / focus */
         .nav-links a:hover,
         .nav-links a:focus-visible {
           color: #ef4601;
           outline: none;
         }
 
-        .nav-links a:hover::after,
-        .nav-links a:focus-visible::after {
-          opacity: 1;
-        }
-
-        /* Active (current page) — stays red with wave */
         .nav-links a.active {
           color: #ef4601;
-        }
-
-        .nav-links a.active::after {
-          opacity: 1;
         }
 
         /* ── Responsive ─────────────────────────────────────── */
@@ -201,10 +211,25 @@ export class WfTopNav extends DDDSuper(LitElement) {
   }
 
   render() {
-    // Swap logo image on hover: red → blue
     const logoImg = this._logoHovered
       ? "./assets/Windward_Force_Logo_Blue.png"
       : "./assets/Windward_Force_Logo_Red.png";
+
+    // Render all non-home items as nav links
+    const navLinks = this._navItems
+      .filter((item) => item.slug !== "home")
+      .map(
+        (item) => html`
+          <a
+            href="#${item.slug}"
+            class=${this.activePage === item.slug ? "active" : ""}
+            data-slug=${item.slug}
+            @click=${(e) => this._handleNavClick(e, item)}
+          >
+            ${item.title}
+          </a>
+        `
+      );
 
     return html`
       <nav class="nav-bar" aria-label="Main navigation">
@@ -214,7 +239,7 @@ export class WfTopNav extends DDDSuper(LitElement) {
           <button
             class="logo-btn"
             aria-label="Go to Home"
-            @click=${() => this._navigateTo("home")}
+            @click=${this._handleLogoClick}
             @mouseenter=${() => { this._logoHovered = true; }}
             @mouseleave=${() => { this._logoHovered = false; }}
           >
@@ -222,23 +247,9 @@ export class WfTopNav extends DDDSuper(LitElement) {
           </button>
         </div>
 
-        <!-- Nav links -->
+        <!-- Nav links (rendered from JSON) -->
         <div class="nav-links">
-          <a
-            href="#teams"
-            class=${this.activePage === "teams" ? "active" : ""}
-            @click=${(e) => { e.preventDefault(); this._navigateTo("teams"); }}
-          >Teams</a>
-          <a
-            href="#regattas"
-            class=${this.activePage === "regattas" ? "active" : ""}
-            @click=${(e) => { e.preventDefault(); this._navigateTo("regattas"); }}
-          >Regattas</a>
-          <a
-            href="#programs"
-            class=${this.activePage === "programs" ? "active" : ""}
-            @click=${(e) => { e.preventDefault(); this._navigateTo("programs"); }}
-          >Programs</a>
+          ${navLinks}
         </div>
 
       </nav>

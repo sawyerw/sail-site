@@ -10,11 +10,57 @@ class WfFooterLinks extends DDDSuper(LitElement) {
     return "wf-footer-links";
   }
 
+  constructor() {
+    super();
+    this._navItems = [];
+  }
+
+  static get properties() {
+    return {
+      ...super.properties,
+      _navItems: { type: Array, state: true },
+    };
+  }
+
+  async connectedCallback() {
+    super.connectedCallback();
+    await this._loadNavItems();
+  }
+
+  /**
+   * Fetches the same data.json used by wf-top-nav and builds
+   * the page link list, sorted by the "order" field.
+   */
+  async _loadNavItems() {
+    try {
+      const response = await fetch(new URL("./data.json", import.meta.url));
+      const data = await response.json();
+      this._navItems = [...data.items].sort(
+        (a, b) => Number(a.order) - Number(b.order)
+      );
+    } catch (e) {
+      console.warn("wf-footer-links: could not load data.json", e);
+      this._navItems = [];
+    }
+  }
+
+  /**
+   * Dispatches a "page-change" CustomEvent — same pattern as wf-top-nav.
+   */
+  _handleNavClick(item) {
+    this.dispatchEvent(
+      new CustomEvent("page-change", {
+        detail: { page: item.slug, item },
+        bubbles: true,
+        composed: true,
+      })
+    );
+  }
+
   static get styles() {
     return [
       super.styles,
       css`
-        /* ── Host fills the height of the parent content row ── */
         :host {
           display: flex;
           flex-direction: row;
@@ -23,7 +69,6 @@ class WfFooterLinks extends DDDSuper(LitElement) {
           overflow: hidden;
         }
 
-        /* ── Outer wrapper: browse on left, connect on right ── */
         .footer-links {
           display: flex;
           flex-direction: row;
@@ -31,7 +76,6 @@ class WfFooterLinks extends DDDSuper(LitElement) {
           height: 100%;
         }
 
-        /* ── Browse: page links stacked vertically ── */
         .footer-links__browse {
           display: flex;
           flex-direction: row;
@@ -61,7 +105,6 @@ class WfFooterLinks extends DDDSuper(LitElement) {
           color: #FFEE86;
         }
 
-        /* ── Connect: social icons stacked vertically ── */
         .footer-links__connect {
           display: flex;
           flex-direction: column;
@@ -89,14 +132,22 @@ class WfFooterLinks extends DDDSuper(LitElement) {
   }
 
   render() {
+    const pageLinks = this._navItems.map(
+      (item) => html`
+        <span
+          class="footer-links__page-link"
+          @click=${() => this._handleNavClick(item)}
+        >
+          ${item.title}
+        </span>
+      `
+    );
+
     return html`
       <div class="footer-links">
         <div class="footer-links__browse">
           <nav class="footer-links__pages">
-            <span class="footer-links__page-link" @click=${() => this._navigateTo("home")}>Home</span>
-            <span class="footer-links__page-link" @click=${() => this._navigateTo("teams")}>Teams</span>
-            <span class="footer-links__page-link" @click=${() => this._navigateTo("regattas")}>Regattas</span>
-            <span class="footer-links__page-link" @click=${() => this._navigateTo("programs")}>Programs</span>
+            ${pageLinks}
           </nav>
         </div>
         <div class="footer-links__connect">
@@ -115,17 +166,6 @@ class WfFooterLinks extends DDDSuper(LitElement) {
         </div>
       </div>
     `;
-  }
-
-  _navigateTo(page) {
-    this.dispatchEvent(
-      new CustomEvent("page-change", {
-        detail: { page },
-        bubbles: true,
-        composed: true,
-      })
-    );
-    globalThis.location.hash = page === "home" ? "" : page;
   }
 }
 
