@@ -4,6 +4,7 @@
  */
 import { LitElement, html, css } from "lit";
 import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
+import "./wf-event-card.js";
 
 /**
  * `wf-regattas-page`
@@ -18,14 +19,29 @@ export class WfRegattasPage extends DDDSuper(LitElement) {
     return "wf-regattas-page";
   }
 
-  constructor() {
-    super();
-  }
-
   static get properties() {
     return {
       ...super.properties,
+      // Populated by fetching data.json on connect
+      _events: { type: Array, state: true },
     };
+  }
+
+  constructor() {
+    super();
+    this._events = [];
+  }
+
+  async connectedCallback() {
+    super.connectedCallback();
+    try {
+      const res = await fetch(new URL("./data.json", import.meta.url).href);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const json = await res.json();
+      this._events = json.events ?? [];
+    } catch (err) {
+      console.error("wf-regattas-page: failed to load events", err);
+    }
   }
 
   static get styles() {
@@ -45,6 +61,14 @@ export class WfRegattasPage extends DDDSuper(LitElement) {
           min-height: 600px;
           box-sizing: border-box;
         }
+
+        .cards-grid {
+          display: flex;
+          flex-wrap: wrap;
+          gap: var(--ddd-spacing-6);
+          padding: var(--ddd-spacing-10) var(--ddd-spacing-10);
+          justify-content: flex-start;
+        }
       `,
     ];
   }
@@ -52,7 +76,11 @@ export class WfRegattasPage extends DDDSuper(LitElement) {
   render() {
     return html`
       <div class="page-content">
-        <!-- Regattas page content goes here -->
+        <div class="cards-grid">
+          ${this._events.map(
+            (event) => html`<wf-event-card .event=${event}></wf-event-card>`
+          )}
+        </div>
       </div>
     `;
   }

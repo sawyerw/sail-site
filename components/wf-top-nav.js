@@ -52,7 +52,7 @@ export class WfTopNav extends DDDSuper(LitElement) {
    */
   async _loadNavItems() {
     try {
-      const response = await fetch(new URL("./data.json", import.meta.url));
+      const response = await fetch(new URL("../data.json", import.meta.url));
       const data = await response.json();
       this._navItems = [...data.items].sort(
         (a, b) => Number(a.order) - Number(b.order)

@@ -40,5 +40,35 @@
       "title": "Programs",
       "metadata": {}
     }
+  ],
+
+  "events": [
+    {
+      "eventName": "Spring Invitational Regatta",
+      "eventDate": "Tuesday, May 10th",
+      "eventTime": "9:00 AM",
+      "eventLocation": "Bellefonte Lake, PA",
+      "hostTeam": "Penn State Sailing Club",
+      "attendingTeams": [
+        "University of Pittsburgh",
+        "Drexel University",
+        "Temple University",
+        "Villanova University",
+        "Lehigh University"
+      ]
+    },
+    {
+      "eventName": "Fall Championship",
+      "eventDate": "Friday, October 4th",
+      "eventTime": "8:30 AM",
+      "eventLocation": "Raystown Lake, PA",
+      "hostTeam": "Penn State Sailing Club",
+      "attendingTeams": [
+        "University of Delaware",
+        "Penn State Sailing Club",
+        "Rutgers University",
+        "Johns Hopkins University"
+      ]
+    }
   ]
 }
