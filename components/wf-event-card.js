@@ -40,27 +40,35 @@ class WfEventCard extends DDDSuper(LitElement) {
       super.styles,
       css`
         :host {
-          display: inline-flex;
-        }
+          display: block; /* prevents inline flex behavior that syncs heights */
+          }
 
-        .event-card {
-          display: flex;
-          width: 300px;
-          padding: 20px 15px;
-          flex-direction: column;
-          align-items: center;
-          border-radius: 30px;
-          gap: var(--ddd-spacing-5);
-          border: 8px solid #5f92a5;
-          background: #fff;
-          box-sizing: border-box;
+          .event-card {
+            display: flex;
+            width: 300px;
+            padding: 20px 15px;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 30px;
+            gap: var(--ddd-spacing-5);
+            border: 8px solid #5f92a5;
+            background: #fff;
+            box-sizing: border-box;
+
+            /* key fixes */
+            height: auto;          /* allow independent height */
+            align-self: flex-start; /* prevents stretching to match siblings */
+          }
+
+        wf-event-card-calendar {
+          width: 100%;
         }
 
         .event-name {
           color: #000;
           text-align: center;
           font-family: var(--ddd-font-primary);
-          font-size: var(--ddd-font-size-l);
+          font-size: var(--ddd-font-size-m);
           font-style: normal;
           font-weight: 400;
           line-height: normal;

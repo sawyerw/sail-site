@@ -35,9 +35,9 @@ export class WfRegattasPage extends DDDSuper(LitElement) {
   async connectedCallback() {
     super.connectedCallback();
     try {
-      const res = await fetch(new URL("./data.json", import.meta.url).href);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const json = await res.json();
+      const response = await fetch("./data.json");
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const json = await response.json();
       this._events = json.events ?? [];
     } catch (err) {
       console.error("wf-regattas-page: failed to load events", err);

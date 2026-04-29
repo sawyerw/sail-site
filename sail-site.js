@@ -29,21 +29,21 @@ export class SailSite extends DDDSuper(I18NMixin(LitElement)) {
   }
 
   constructor() {
-    super();
-    this.title = "";
-    this.activePage = "home";
-    this.t = this.t || {};
-    this.t = {
-      ...this.t,
-      title: "Title",
-    };
-    this.registerLocalization({
-      context: this,
-      localesPath:
-        new URL("./locales/sail-site.ar.json", import.meta.url).href +
-        "/../",
-    });
-  }
+  super();
+  this.title = "";
+  this.activePage = globalThis.location.hash.replace("#", "") || "home";
+  this.t = this.t || {};
+  this.t = {
+    ...this.t,
+    title: "Title",
+  };
+  this.registerLocalization({
+    context: this,
+    localesPath:
+      new URL("./locales/sail-site.ar.json", import.meta.url).href +
+      "/../",
+  });
+}
 
   static get properties() {
     return {
@@ -54,15 +54,20 @@ export class SailSite extends DDDSuper(I18NMixin(LitElement)) {
   }
 
   connectedCallback() {
-    super.connectedCallback();
-    this._boundPageChange = this._handlePageChange.bind(this);
-    this.addEventListener("page-change", this._boundPageChange);
-  }
+  super.connectedCallback();
+  this._boundPageChange = this._handlePageChange.bind(this);
+  this._boundHashChange = () => {
+    this.activePage = globalThis.location.hash.replace("#", "") || "home";
+  };
+  this.addEventListener("page-change", this._boundPageChange);
+  globalThis.addEventListener("hashchange", this._boundHashChange);
+}
 
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this.removeEventListener("page-change", this._boundPageChange);
-  }
+disconnectedCallback() {
+  super.disconnectedCallback();
+  this.removeEventListener("page-change", this._boundPageChange);
+  globalThis.removeEventListener("hashchange", this._boundHashChange);
+}
 
   /**
    * Receives "page-change" CustomEvent from wf-top-nav and

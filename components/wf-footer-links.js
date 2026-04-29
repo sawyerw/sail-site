@@ -33,7 +33,7 @@ class WfFooterLinks extends DDDSuper(LitElement) {
    */
   async _loadNavItems() {
     try {
-      const response = await fetch(new URL("../data.json", import.meta.url));
+      const response = await fetch("../data.json");
       const data = await response.json();
       this._navItems = [...data.items].sort(
         (a, b) => Number(a.order) - Number(b.order)
@@ -48,14 +48,15 @@ class WfFooterLinks extends DDDSuper(LitElement) {
    * Dispatches a "page-change" CustomEvent — same pattern as wf-top-nav.
    */
   _handleNavClick(item) {
-    this.dispatchEvent(
-      new CustomEvent("page-change", {
-        detail: { page: item.slug, item },
-        bubbles: true,
-        composed: true,
-      })
-    );
-  }
+  globalThis.location.hash = item.slug === "home" ? "" : item.slug;
+  this.dispatchEvent(
+    new CustomEvent("page-change", {
+      detail: { page: item.slug, item },
+      bubbles: true,
+      composed: true,
+    })
+  );
+}
 
   static get styles() {
     return [

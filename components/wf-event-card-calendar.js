@@ -37,40 +37,50 @@ class WfEventCardCalendar extends DDDSuper(LitElement) {
       super.styles,
       css`
         :host {
-          display: flex;
-          padding: 4px 15px;
-          justify-content: center;
-          align-items: flex-start;
-          gap: var(--ddd-spacing-5);
-        }
+  display: flex;
+  width: 100%;
+  padding: 4px 0;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--ddd-spacing-3);
+  box-sizing: border-box;
+  flex-wrap: nowrap; /* prevent stacking */
+}
 
-        .event-card-date {
-          display: inline-flex;
-          padding: 10px 20px;
-          align-items: center;
-          gap: var(--ddd-spacing-2);
-          border-radius: 10px;
-          background: #ef4601;
-        }
+.event-card-date {
+  display: inline-flex;
+  padding: 10px;
+  align-items: center;
+  gap: var(--ddd-spacing-1);
+  border-radius: 10px;
+  background: #ef4601;
+  flex: 1 1 auto; /* allow it to grow and wrap internally */
+  min-width: 0;
+  box-sizing: border-box;
+}
 
-        .event-card-time {
-          display: inline-flex;
-          padding: 10px 20px;
-          align-items: center;
-          gap: var(--ddd-spacing-2);
-          border-radius: 10px;
-          background: #01315f;
-        }
+.event-card-time {
+  display: inline-flex;
+  padding: 10px;
+  align-items: center;
+  gap: var(--ddd-spacing-1);
+  border-radius: 10px;
+  background: #01315f;
+  flex: 0 0 auto; /* keep size, don’t force wrap */
+  box-sizing: border-box;
+}
 
-        .label {
-          color: #fff;
-          font-family: var(--ddd-font-primary);
-          font-size: var(--ddd-font-size-3xs);
-          font-style: normal;
-          font-weight: 700;
-          line-height: 20px;
-          white-space: nowrap;
-        }
+.label {
+  color: #fff;
+  font-family: var(--ddd-font-primary);
+  font-size: var(--ddd-font-size-3xs);
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+  white-space: normal; /* allow wrapping inside date */
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
       `,
     ];
   }

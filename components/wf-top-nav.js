@@ -52,7 +52,7 @@ export class WfTopNav extends DDDSuper(LitElement) {
    */
   async _loadNavItems() {
     try {
-      const response = await fetch(new URL("../data.json", import.meta.url));
+      const response = await fetch("../data.json");
       const data = await response.json();
       this._navItems = [...data.items].sort(
         (a, b) => Number(a.order) - Number(b.order)
@@ -67,33 +67,35 @@ export class WfTopNav extends DDDSuper(LitElement) {
    * Dispatches a "page-change" CustomEvent with the selected page slug,
    * and updates the active page state.
    */
-  _handleNavClick(e, item) {
-    e.preventDefault();
-    this.activePage = item.slug;
-    this.dispatchEvent(
-      new CustomEvent("page-change", {
-        detail: { page: item.slug, item },
-        bubbles: true,
-        composed: true,
-      })
-    );
-  }
+ _handleNavClick(e, item) {
+  e.preventDefault();
+  this.activePage = item.slug;
+  globalThis.location.hash = item.slug === "home" ? "" : item.slug;
+  this.dispatchEvent(
+    new CustomEvent("page-change", {
+      detail: { page: item.slug, item },
+      bubbles: true,
+      composed: true,
+    })
+  );
+}
 
-  _handleLogoClick() {
-    const homeItem = this._navItems.find((i) => i.slug === "home") || {
-      slug: "home",
-      id: "wf-page-home",
-      title: "Home",
-    };
-    this.activePage = "home";
-    this.dispatchEvent(
-      new CustomEvent("page-change", {
-        detail: { page: "home", item: homeItem },
-        bubbles: true,
-        composed: true,
-      })
-    );
-  }
+_handleLogoClick() {
+  const homeItem = this._navItems.find((i) => i.slug === "home") || {
+    slug: "home",
+    id: "wf-page-home",
+    title: "Home",
+  };
+  this.activePage = "home";
+  globalThis.location.hash = "";
+  this.dispatchEvent(
+    new CustomEvent("page-change", {
+      detail: { page: "home", item: homeItem },
+      bubbles: true,
+      composed: true,
+    })
+  );
+}
 
   static get styles() {
     return [

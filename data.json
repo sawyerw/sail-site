@@ -44,31 +44,109 @@
 
   "events": [
     {
-      "eventName": "Spring Invitational Regatta",
-      "eventDate": "Tuesday, May 10th",
-      "eventTime": "9:00 AM",
-      "eventLocation": "Bellefonte Lake, PA",
-      "hostTeam": "Penn State Sailing Club",
-      "attendingTeams": [
-        "University of Pittsburgh",
-        "Drexel University",
-        "Temple University",
-        "Villanova University",
-        "Lehigh University"
-      ]
-    },
-    {
-      "eventName": "Fall Championship",
-      "eventDate": "Friday, October 4th",
-      "eventTime": "8:30 AM",
-      "eventLocation": "Raystown Lake, PA",
-      "hostTeam": "Penn State Sailing Club",
-      "attendingTeams": [
-        "University of Delaware",
-        "Penn State Sailing Club",
-        "Rutgers University",
-        "Johns Hopkins University"
-      ]
-    }
+  "eventName": "Maple Leaf Final Regatta",
+  "eventDate": "Saturday, April 18th",
+  "eventTime": "10:00 AM",
+  "eventLocation": "Lake Champlain, VT",
+  "hostTeam": "University of Vermont Sailing Team",
+  "attendingTeams": [
+    "McGill University",
+    "Cornell University",
+    "Dartmouth College",
+    "University of New Hampshire",
+    "Boston University"
+  ]
+},
+{
+  "eventName": "Crimson Tide Clash",
+  "eventDate": "Sunday, March 22nd",
+  "eventTime": "11:00 AM",
+  "eventLocation": "Tuscaloosa Riverfront, AL",
+  "hostTeam": "University of Alabama Sailing Club",
+  "attendingTeams": [
+    "Auburn University",
+    "University of Georgia",
+    "Florida State University",
+    "University of Tennessee"
+  ]
+},
+{
+  "eventName": "Golden Sails Classic",
+  "eventDate": "Saturday, June 6th",
+  "eventTime": "9:30 AM",
+  "eventLocation": "San Francisco Bay, CA",
+  "hostTeam": "UC Berkeley Sailing Team",
+  "attendingTeams": [
+    "Stanford University",
+    "UCLA",
+    "UC San Diego",
+    "University of Washington"
+  ]
+},
+{
+  "eventName": "Midnight Harbor Regatta",
+  "eventDate": "Friday, July 17th",
+  "eventTime": "7:00 PM",
+  "eventLocation": "Baltimore Harbor, MD",
+  "hostTeam": "Johns Hopkins University",
+  "attendingTeams": [
+    "U.S. Naval Academy",
+    "Georgetown University",
+    "George Washington University",
+    "University of Maryland"
+  ]
+},
+{
+  "eventName": "Great Lakes Gauntlet",
+  "eventDate": "Sunday, September 13th",
+  "eventTime": "10:30 AM",
+  "eventLocation": "Lake Erie, OH",
+  "hostTeam": "Case Western Reserve University Sailing Club",
+  "attendingTeams": [
+    "Ohio State University",
+    "University of Michigan",
+    "University of Toledo",
+    "Bowling Green State University"
+  ]
+},
+{
+  "eventName": "Emerald Coast Invitational",
+  "eventDate": "Saturday, May 2nd",
+  "eventTime": "9:00 AM",
+  "eventLocation": "Pensacola Bay, FL",
+  "hostTeam": "University of West Florida Sailing Team",
+  "attendingTeams": [
+    "University of Florida",
+    "Florida State University",
+    "University of Miami",
+    "University of South Florida"
+  ]
+},
+{
+  "eventName": "Autumn Wind Cup",
+  "eventDate": "Saturday, October 10th",
+  "eventTime": "8:45 AM",
+  "eventLocation": "Hudson River, NY",
+  "hostTeam": "Columbia University Sailing Team",
+  "attendingTeams": [
+    "New York University",
+    "Princeton University",
+    "Yale University",
+    "Rutgers University"
+  ]
+},
+{
+  "eventName": "Blue Horizon Showdown",
+  "eventDate": "Sunday, August 9th",
+  "eventTime": "10:15 AM",
+  "eventLocation": "Outer Banks, NC",
+  "hostTeam": "UNC Chapel Hill Sailing Club",
+  "attendingTeams": [
+    "Duke University",
+    "NC State University",
+    "East Carolina University",
+    "College of Charleston"
+  ]
+}
   ]
 }
