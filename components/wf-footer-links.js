@@ -48,15 +48,15 @@ class WfFooterLinks extends DDDSuper(LitElement) {
    * Dispatches a "page-change" CustomEvent — same pattern as wf-top-nav.
    */
   _handleNavClick(item) {
-  globalThis.location.hash = item.slug === "home" ? "" : item.slug;
-  this.dispatchEvent(
-    new CustomEvent("page-change", {
-      detail: { page: item.slug, item },
-      bubbles: true,
-      composed: true,
-    })
-  );
-}
+    globalThis.location.hash = item.slug === "home" ? "" : item.slug;
+    this.dispatchEvent(
+      new CustomEvent("page-change", {
+        detail: { page: item.slug, item },
+        bubbles: true,
+        composed: true,
+      })
+    );
+  }
 
   static get styles() {
     return [
@@ -77,6 +77,7 @@ class WfFooterLinks extends DDDSuper(LitElement) {
           height: 100%;
         }
 
+        /* ── Browse / page links column ── */
         .footer-links__browse {
           display: flex;
           flex-direction: row;
@@ -106,6 +107,7 @@ class WfFooterLinks extends DDDSuper(LitElement) {
           color: #FFEE86;
         }
 
+        /* ── Connect / social icons — vertical on desktop ── */
         .footer-links__connect {
           display: flex;
           flex-direction: column;
@@ -127,6 +129,48 @@ class WfFooterLinks extends DDDSuper(LitElement) {
 
         .footer-links__social:hover img {
           opacity: 0.75;
+        }
+
+        /* ── Tablet (≤ 900px) — tighten padding ── */
+        @media (max-width: 900px) {
+          .footer-links__browse {
+            padding: var(--ddd-spacing-4) var(--ddd-spacing-6);
+          }
+
+          .footer-links__connect {
+            padding: var(--ddd-spacing-4) var(--ddd-spacing-6);
+          }
+        }
+
+        /* ── Mobile (≤ 600px) — stack vertically, social goes horizontal ── */
+        @media (max-width: 600px) {
+          :host {
+            width: 100%;
+          }
+
+          .footer-links {
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+            height: auto;
+          }
+
+          .footer-links__browse {
+            height: auto;
+            padding: var(--ddd-spacing-2) var(--ddd-spacing-0);
+          }
+
+          .footer-links__pages {
+            text-align: left;
+          }
+
+          /* Social icons go horizontal below the page links */
+          .footer-links__connect {
+            flex-direction: row;
+            height: auto;
+            padding: var(--ddd-spacing-2) var(--ddd-spacing-0);
+            gap: var(--ddd-spacing-4);
+          }
         }
       `,
     ];

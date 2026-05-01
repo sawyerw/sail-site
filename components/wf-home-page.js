@@ -48,53 +48,49 @@ export class WfHomePage extends DDDSuper(LitElement) {
 
         /* ── Hero Banner ── */
         .sail-hero-pic {
-            display: flex;
-            height: 400px;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-shrink: 0;
-            align-self: stretch;
-            background: url("../assets/women-sailing.jpg") lightgray 50% / cover no-repeat;
-            position: relative;
-            width: 100%;
-            box-sizing: border-box;
-          }
+          display: flex;
+          height: 400px;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: flex-start;
+          flex-shrink: 0;
+          align-self: stretch;
+          background: url("../assets/women-sailing.jpg") lightgray 50% / cover no-repeat;
+          position: relative;
+          width: 100%;
+          box-sizing: border-box;
+          overflow: hidden;
+        }
 
-          /* dim layer */
-          .sail-hero-pic::before {
-            content: "";
-            position: absolute;
-            background: rgba(0, 0, 0, 0.10); 
-          }
+        /* shade sits above dim layer */
+        .sail-hero-shade {
+          position: relative;
+          display: flex;
+          padding: var(--ddd-spacing-0) var(--ddd-spacing-25);
+          flex-direction: column;
+          justify-content: center;
+          align-items: flex-start;
+          gap: var(--ddd-spacing-3);
+          flex: 1 0 0;
+          align-self: stretch;
+          background: #01315f99; /* 60% opacity */
+          box-sizing: border-box;
+        }
 
-          /* make sure content sits above dim layer */
-          .sail-hero-shade {
-            position: relative;
-            display: flex;
-            padding: var(--ddd-spacing-0) var(--ddd-spacing-25);
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            gap: var(--ddd-spacing-3);
-            flex: 1 0 0;
-            align-self: stretch;
-            background: #01315f80;
-            box-sizing: border-box;
-          }
-
+        /* text sits on top of everything */
         .sail-hero-text {
-            max-width: 718px;
-            width: fit-content;
-            color: #01315f;
-            font-family: var(--ddd-font-primary);
-            font-size: var(--ddd-font-size-xl);
-            font-style: normal;
-            font-weight: var(--ddd-font-weight-bold);
-            line-height: 1.15;
-            background: #FFEE86;
-            padding: var(--ddd-spacing-2) var(--ddd-spacing-4);
-          }
+          position: relative;
+          max-width: 718px;
+          width: fit-content;
+          color: white;
+          font-family: var(--ddd-font-primary);
+          font-size: var(--ddd-font-size-xl);
+          font-style: normal;
+          font-weight: var(--ddd-font-weight-bold);
+          line-height: 1.15;
+          background: #01315fcc; /* 80% opacity */
+          padding: var(--ddd-spacing-2) var(--ddd-spacing-4);
+        }
 
         /* ── About Section ── */
         .about-section {
@@ -118,7 +114,7 @@ export class WfHomePage extends DDDSuper(LitElement) {
           font-style: normal;
           font-weight: var(--ddd-font-weight-bold);
           line-height: normal;
-          margin: 0;
+          margin: var(--ddd-spacing-0);
         }
 
         .about-body {
@@ -154,44 +150,52 @@ export class WfHomePage extends DDDSuper(LitElement) {
 
           .sail-hero-text {
             width: 100%;
+            font-size: var(--ddd-font-size-m);
           }
 
           .about-section {
             padding: var(--ddd-spacing-3) var(--ddd-spacing-4);
           }
+
+           .about-heading {
+              font-size: var(--ddd-font-size-s);  
+            }
+            .about-body {
+              font-size: var(--ddd-font-size-xs);  
+            }
         }
       `,
     ];
   }
 
   render() {
-    return html`
-      <div class="page-content">
-        <!-- Hero Banner -->
-        <div class="sail-hero-pic">
-          <div class="sail-hero-shade">
-            <p class="sail-hero-text">
-              Catch the Wind.<br />Find Your Course.
-            </p>
-          </div>
-        </div>
-
-        <!-- About Us Section -->
-        <div class="about-section">
-          <h2 class="about-heading">About Us</h2>
-          <p class="about-body">
-            Windward Force is a sailing league built for high school and college
-            clubs, as well as individual students, who want to get on the water,
-            learn fast, and race without the pressure of elite competition. We
-            focus on the fundamentals—boat handling, teamwork, and race
-            strategy—while keeping the experience social and accessible. Whether
-            you're brand new or building confidence, Windward Force gives you a
-            place to improve, compete, and find your love for sailing.
+  return html`
+    <div class="page-content">
+      <!-- Hero Banner -->
+      <div class="sail-hero-pic" role="img" aria-label="Women sailing on the water">
+        <div class="sail-hero-shade">
+          <p class="sail-hero-text">
+            Catch the Wind.<br />Find Your Course.
           </p>
         </div>
       </div>
-    `;
-  }
+
+      <!-- About Us Section -->
+      <div class="about-section">
+        <h2 class="about-heading">About Us</h2>
+        <p class="about-body">
+          Windward Force is a sailing league built for high school and college
+          clubs, as well as individual students, who want to get on the water,
+          learn fast, and race without the pressure of elite competition. We
+          focus on the fundamentals—boat handling, teamwork, and race
+          strategy—while keeping the experience social and accessible. Whether
+          you're brand new or building confidence, Windward Force gives you a
+          place to improve, compete, and find your love for sailing.
+        </p>
+      </div>
+    </div>
+  `;
+}
 }
 
 globalThis.customElements.define(WfHomePage.tag, WfHomePage);

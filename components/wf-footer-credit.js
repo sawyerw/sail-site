@@ -20,6 +20,7 @@ class WfFooterCredit extends DDDSuper(LitElement) {
           flex-direction: column;
           justify-content: center;
           align-items: flex-start;
+          flex-shrink: 0;
         }
 
         .footer-credit {
@@ -30,7 +31,7 @@ class WfFooterCredit extends DDDSuper(LitElement) {
           gap: var(--ddd-spacing-2);
         }
 
-        /* ── Issue 1: Logo capped at 60px tall, proportional width ── */
+        /* ── Logo capped at 80px tall, proportional width ── */
         .footer-credit__logo {
           max-height: 80px;
           width: auto;
@@ -45,6 +46,24 @@ class WfFooterCredit extends DDDSuper(LitElement) {
           font-size: var(--ddd-font-size-4xs);
           font-weight: var(--ddd-font-weight-bold);
           margin: var(--ddd-spacing-0);
+        }
+
+        /* ── Tablet (≤ 900px) ── */
+        @media (max-width: 900px) {
+          .footer-credit__logo {
+            max-height: 60px;
+          }
+
+          .footer-credit__text {
+            width: auto;
+          }
+        }
+
+        /* ── Mobile (≤ 600px) ── */
+        @media (max-width: 600px) {
+          .footer-credit__logo {
+            max-height: 50px;
+          }
         }
       `,
     ];

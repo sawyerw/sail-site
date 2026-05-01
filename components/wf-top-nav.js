@@ -11,6 +11,7 @@ import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
  * Yellow bar with logo on left, nav links on right.
  * Logo click navigates to Home. Nav links show active state.
  * Navigation items are driven by a JSON data structure.
+ * On mobile, nav links collapse into a hamburger dropdown.
  *
  * @demo index.html
  * @element wf-top-nav
@@ -27,6 +28,7 @@ export class WfTopNav extends DDDSuper(LitElement) {
     this.activePage = "home";
     this._logoHovered = false;
     this._navItems = [];
+    this._menuOpen = false;
   }
 
   static get properties() {
@@ -37,6 +39,7 @@ export class WfTopNav extends DDDSuper(LitElement) {
       activePage: { type: String, reflect: true },
       _logoHovered: { type: Boolean, state: true },
       _navItems: { type: Array, state: true },
+      _menuOpen: { type: Boolean, state: true },
     };
   }
 
@@ -67,35 +70,41 @@ export class WfTopNav extends DDDSuper(LitElement) {
    * Dispatches a "page-change" CustomEvent with the selected page slug,
    * and updates the active page state.
    */
- _handleNavClick(e, item) {
-  e.preventDefault();
-  this.activePage = item.slug;
-  globalThis.location.hash = item.slug === "home" ? "" : item.slug;
-  this.dispatchEvent(
-    new CustomEvent("page-change", {
-      detail: { page: item.slug, item },
-      bubbles: true,
-      composed: true,
-    })
-  );
-}
+  _handleNavClick(e, item) {
+    e.preventDefault();
+    this.activePage = item.slug;
+    this._menuOpen = false;
+    globalThis.location.hash = item.slug === "home" ? "" : item.slug;
+    this.dispatchEvent(
+      new CustomEvent("page-change", {
+        detail: { page: item.slug, item },
+        bubbles: true,
+        composed: true,
+      })
+    );
+  }
 
-_handleLogoClick() {
-  const homeItem = this._navItems.find((i) => i.slug === "home") || {
-    slug: "home",
-    id: "wf-page-home",
-    title: "Home",
-  };
-  this.activePage = "home";
-  globalThis.location.hash = "";
-  this.dispatchEvent(
-    new CustomEvent("page-change", {
-      detail: { page: "home", item: homeItem },
-      bubbles: true,
-      composed: true,
-    })
-  );
-}
+  _handleLogoClick() {
+    const homeItem = this._navItems.find((i) => i.slug === "home") || {
+      slug: "home",
+      id: "wf-page-home",
+      title: "Home",
+    };
+    this.activePage = "home";
+    this._menuOpen = false;
+    globalThis.location.hash = "";
+    this.dispatchEvent(
+      new CustomEvent("page-change", {
+        detail: { page: "home", item: homeItem },
+        bubbles: true,
+        composed: true,
+      })
+    );
+  }
+
+  _toggleMenu() {
+    this._menuOpen = !this._menuOpen;
+  }
 
   static get styles() {
     return [
@@ -119,15 +128,15 @@ _handleLogoClick() {
           justify-content: space-between;
           background: #ffee86;
           box-shadow: var(--ddd-boxShadow-sm);
+          position: relative;
         }
 
         /* ── Left: logo frame ───────────────────────────────── */
         .logo-frame {
           display: flex;
-          width: 420px;
+          flex-shrink: 0;
           align-items: center;
           gap: var(--ddd-spacing-3);
-          flex-shrink: 0;
         }
 
         .logo-btn {
@@ -149,13 +158,14 @@ _handleLogoClick() {
         /* ── Right: nav links frame ─────────────────────────── */
         .nav-links {
           display: flex;
-          width: 594px;
+          flex: 1;
           align-items: flex-end;
           align-content: flex-end;
           gap: var(--ddd-spacing-10);
-          flex-shrink: 0;
+          flex-shrink: 1;
           flex-wrap: wrap;
           justify-content: flex-end;
+          min-width: 0;
         }
 
         .nav-links a {
@@ -179,8 +189,72 @@ _handleLogoClick() {
           color: #ef4601;
         }
 
-        /* ── Responsive ─────────────────────────────────────── */
-        @media (max-width: 900px) {
+        /* ── Hamburger button — hidden on desktop ───────────── */
+        .hamburger-btn {
+          display: none;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: var(--ddd-spacing-2);
+          align-items: center;
+          justify-content: center;
+        }
+
+        .hamburger-btn img {
+          width: 36px;
+          height: 36px;
+        }
+
+        /* ── Dropdown menu — hidden until open ──────────────── */
+        .dropdown-menu {
+          display: none;
+          position: absolute;
+          top: 100%;
+          right: var(--ddd-spacing-0);
+          width: 100%;
+          background: #01315f;
+          flex-direction: column;
+          z-index: 999;
+          box-shadow: var(--ddd-boxShadow-sm);
+        }
+
+        .dropdown-menu.open {
+          display: flex;
+        }
+
+        .dropdown-menu a {
+          color: #ffffff;
+          text-decoration: none;
+          font-family: var(--ddd-font-navigation);
+          font-size: var(--ddd-font-size-m);
+          font-weight: var(--ddd-font-weight-bold);
+          padding: var(--ddd-spacing-5) var(--ddd-spacing-6);
+          border-bottom: 1px solid var(--ddd-theme-default-slateLight);
+          transition: background 0.15s ease;
+        }
+
+        .dropdown-menu a:last-child {
+          border-bottom: none;
+        }
+
+        .dropdown-menu a:hover,
+        .dropdown-menu a.active {
+          background: #ef4601;
+        }
+
+        /* ── Shrink logo before links start wrapping ── */
+        @media (max-width: 1100px) {
+          .logo-btn img {
+            max-height: 90px;
+          }
+
+          .nav-bar {
+            padding: var(--ddd-spacing-1) var(--ddd-spacing-10);
+          }
+        }
+
+        /* ── Tablet (≤ 950px) ── */
+        @media (max-width: 950px) {
           .nav-bar {
             height: auto;
             min-height: 80px;
@@ -208,6 +282,17 @@ _handleLogoClick() {
             font-size: 1rem;
           }
         }
+
+        /* ── Mobile (≤ 600px) — swap to hamburger ── */
+        @media (max-width: 600px) {
+          .nav-links {
+            display: none;
+          }
+
+          .hamburger-btn {
+            display: flex;
+          }
+        }
       `,
     ];
   }
@@ -217,21 +302,35 @@ _handleLogoClick() {
       ? "./assets/Windward_Force_Logo_Blue.png"
       : "./assets/Windward_Force_Logo_Red.png";
 
-    // Render all non-home items as nav links
-    const navLinks = this._navItems
-      .filter((item) => item.slug !== "home")
-      .map(
-        (item) => html`
-          <a
-            href="#${item.slug}"
-            class=${this.activePage === item.slug ? "active" : ""}
-            data-slug=${item.slug}
-            @click=${(e) => this._handleNavClick(e, item)}
-          >
-            ${item.title}
-          </a>
-        `
-      );
+    const nonHomeItems = this._navItems.filter((item) => item.slug !== "home");
+
+    // Desktop nav links
+    const navLinks = nonHomeItems.map(
+      (item) => html`
+        <a
+          href="#${item.slug}"
+          class=${this.activePage === item.slug ? "active" : ""}
+          data-slug=${item.slug}
+          @click=${(e) => this._handleNavClick(e, item)}
+        >
+          ${item.title}
+        </a>
+      `
+    );
+
+    // Mobile dropdown links
+    const dropdownLinks = nonHomeItems.map(
+      (item) => html`
+        <a
+          href="#${item.slug}"
+          class=${this.activePage === item.slug ? "active" : ""}
+          data-slug=${item.slug}
+          @click=${(e) => this._handleNavClick(e, item)}
+        >
+          ${item.title}
+        </a>
+      `
+    );
 
     return html`
       <nav class="nav-bar" aria-label="Main navigation">
@@ -249,9 +348,24 @@ _handleLogoClick() {
           </button>
         </div>
 
-        <!-- Nav links (rendered from JSON) -->
+        <!-- Desktop nav links (rendered from JSON) -->
         <div class="nav-links">
           ${navLinks}
+        </div>
+
+        <!-- Hamburger button (mobile only) -->
+        <button
+          class="hamburger-btn"
+          aria-label="Open navigation menu"
+          aria-expanded=${this._menuOpen}
+          @click=${this._toggleMenu}
+        >
+          <img src="./assets/icons8-hamburger-menu.svg" alt="Menu" />
+        </button>
+
+        <!-- Mobile dropdown -->
+        <div class="dropdown-menu ${this._menuOpen ? "open" : ""}">
+          ${dropdownLinks}
         </div>
 
       </nav>
