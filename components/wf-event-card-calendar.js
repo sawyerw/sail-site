@@ -39,7 +39,7 @@ class WfEventCardCalendar extends DDDSuper(LitElement) {
         :host {
   display: flex;
   width: 100%;
-  padding: 4px 0;
+  padding: var(--ddd-spacing-1) var(--ddd-spacing-0);
   justify-content: center;
   align-items: flex-start;
   gap: var(--ddd-spacing-3);
@@ -49,11 +49,11 @@ class WfEventCardCalendar extends DDDSuper(LitElement) {
 
 .event-card-date {
   display: inline-flex;
-  padding: 10px;
+  padding: var(--ddd-spacing-3);
   align-items: center;
   gap: var(--ddd-spacing-1);
-  border-radius: 10px;
-  background: #ef4601;
+  border-radius: var(--ddd-radius-md);
+  background: light-dark(#01315f, #EF4601);
   flex: 1 1 auto; /* allow it to grow and wrap internally */
   min-width: 0;
   box-sizing: border-box;
@@ -61,22 +61,21 @@ class WfEventCardCalendar extends DDDSuper(LitElement) {
 
 .event-card-time {
   display: inline-flex;
-  padding: 10px;
+  padding: var(--ddd-spacing-3);
   align-items: center;
   gap: var(--ddd-spacing-1);
   border-radius: 10px;
-  background: #01315f;
+  background: light-dark(#01315f, #EF4601);
   flex: 0 0 auto; /* keep size, don’t force wrap */
   box-sizing: border-box;
 }
 
 .label {
-  color: #fff;
+  color: white;
   font-family: var(--ddd-font-primary);
   font-size: var(--ddd-font-size-3xs);
   font-style: normal;
-  font-weight: 700;
-  line-height: 20px;
+  font-weight: var(--ddd-font-weight-bold);
   white-space: normal; /* allow wrapping inside date */
   word-break: break-word;
   overflow-wrap: break-word;

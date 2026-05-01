@@ -30,8 +30,9 @@ class WfFooter extends DDDSuper(LitElement) {
           justify-content: flex-end;
           align-items: flex-start;
           gap: var(--ddd-spacing-5);
-          background: #01315F;
+          background: #01315f;
           padding-top: var(--ddd-spacing-10);
+          border-top: 3px solid white;
         }
 
         /* ── Row holding credit + links ── */

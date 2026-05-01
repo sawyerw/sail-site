@@ -35,7 +35,7 @@ export class WfRegattasPage extends DDDSuper(LitElement) {
   async connectedCallback() {
     super.connectedCallback();
     try {
-      const response = await fetch("./data.json");
+      const response = await fetch(new URL("../data.json", import.meta.url));
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const json = await response.json();
       this._events = json.events ?? [];
@@ -53,7 +53,7 @@ export class WfRegattasPage extends DDDSuper(LitElement) {
           width: 100%;
           min-height: 600px;
           box-sizing: border-box;
-          background: #ffffff;
+          background: light-dark(white, #01315f);;
         }
 
         .page-content {
@@ -67,7 +67,7 @@ export class WfRegattasPage extends DDDSuper(LitElement) {
           flex-wrap: wrap;
           gap: var(--ddd-spacing-6);
           padding: var(--ddd-spacing-10) var(--ddd-spacing-10);
-          justify-content: flex-start;
+          justify-content: center;
         }
       `,
     ];

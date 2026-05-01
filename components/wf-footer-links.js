@@ -89,7 +89,7 @@ class WfFooterLinks extends DDDSuper(LitElement) {
         .footer-links__pages {
           display: flex;
           flex-direction: column;
-          color: #fff;
+          color: #ffffff;
           text-align: right;
           font-family: var(--ddd-font-primary);
           font-size: var(--ddd-font-size-3xs);
@@ -111,7 +111,7 @@ class WfFooterLinks extends DDDSuper(LitElement) {
           flex-direction: column;
           justify-content: center;
           align-items: flex-start;
-          padding: 22px 47px;
+          padding: var(--ddd-spacing-5) var(--ddd-spacing-12);
           height: 172px;
           box-sizing: border-box;
           gap: var(--ddd-spacing-3);

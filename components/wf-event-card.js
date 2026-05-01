@@ -46,16 +46,15 @@ class WfEventCard extends DDDSuper(LitElement) {
           .event-card {
             display: flex;
             width: 300px;
-            padding: 20px 15px;
+            padding: var(--ddd-spacing-5) var(--ddd-spacing-3);
             flex-direction: column;
             align-items: center;
-            border-radius: 30px;
+            border-radius: var(--ddd-radius-xl);
             gap: var(--ddd-spacing-5);
-            border: 8px solid #5f92a5;
-            background: #fff;
+            border: 8px solid light-dark(#01315f, white);
+            background: light-dark(white, #01315f);
             box-sizing: border-box;
 
-            /* key fixes */
             height: auto;          /* allow independent height */
             align-self: flex-start; /* prevents stretching to match siblings */
           }
@@ -65,13 +64,11 @@ class WfEventCard extends DDDSuper(LitElement) {
         }
 
         .event-name {
-          color: #000;
+          color: light-dark(#EF4601, white);
           text-align: center;
           font-family: var(--ddd-font-primary);
           font-size: var(--ddd-font-size-m);
-          font-style: normal;
-          font-weight: 400;
-          line-height: normal;
+          font-weight: var(--ddd-font-weight-bold);
         }
       `,
     ];

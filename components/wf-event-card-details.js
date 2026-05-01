@@ -40,7 +40,7 @@ class WfEventCardDetails extends DDDSuper(LitElement) {
       css`
         :host {
           display: flex;
-          padding: 20px 15px;
+          padding: var(--ddd-spacing-5) var(--ddd-spacing-3);
           flex-direction: column;
           align-items: flex-start;
           gap: var(--ddd-spacing-2);
@@ -49,22 +49,20 @@ class WfEventCardDetails extends DDDSuper(LitElement) {
         }
 
         .event-card-location {
-          color: #000;
+          color: var(--ddd-color-text-primary);
           font-family: var(--ddd-font-primary);
           font-size: var(--ddd-font-size-xs);
-          font-style: normal;
-          font-weight: 400;
-          line-height: normal;
+          font-weight: var(--ddd-font-weight-regular);
         }
 
         .event-card-teams {
           display: flex;
           width: 240px;
           height: 40px;
-          padding: 0 20px;
+          padding: var(--ddd-spacing-0) var(--ddd-spacing-5);
           justify-content: space-between;
           align-items: center;
-          border-radius: 10px;
+          border-radius: var(--ddd-radius-md);
           background: #ffee86;
           box-sizing: border-box;
           cursor: pointer;
@@ -76,7 +74,7 @@ class WfEventCardDetails extends DDDSuper(LitElement) {
           font-family: var(--ddd-font-primary);
           font-size: var(--ddd-font-size-xs);
           font-style: normal;
-          font-weight: 700;
+          font-weight: var(--ddd-font-weight-bold);
           line-height: normal;
         }
 
@@ -105,13 +103,13 @@ class WfEventCardDetails extends DDDSuper(LitElement) {
         }
 
         .dropdown-item {
-          color: #000;
+          color: var(--ddd-color-text-primary);
           font-family: var(--ddd-font-primary);
           font-size: var(--ddd-font-size-3xs);
-          font-weight: 400;
+          font-weight: var(--ddd-font-weight-regular);
           line-height: 1.4;
-          padding: 4px 0;
-          border-bottom: 1px solid #e0e0e0;
+          padding: var(--ddd-spacing-1) var(--ddd-spacing-0);
+          border-bottom: 2px solid #ef4601;
         }
 
         .dropdown-item:last-child {

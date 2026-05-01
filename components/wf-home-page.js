@@ -37,13 +37,128 @@ export class WfHomePage extends DDDSuper(LitElement) {
           width: 100%;
           min-height: 600px;
           box-sizing: border-box;
-          background: #ffffff;
+          background: light-dark(white, #01315f);
         }
 
         .page-content {
           width: 100%;
           min-height: 600px;
           box-sizing: border-box;
+        }
+
+        /* ── Hero Banner ── */
+        .sail-hero-pic {
+            display: flex;
+            height: 400px;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-shrink: 0;
+            align-self: stretch;
+            background: url("../assets/women-sailing.jpg") lightgray 50% / cover no-repeat;
+            position: relative;
+            width: 100%;
+            box-sizing: border-box;
+          }
+
+          /* dim layer */
+          .sail-hero-pic::before {
+            content: "";
+            position: absolute;
+            background: rgba(0, 0, 0, 0.10); 
+          }
+
+          /* make sure content sits above dim layer */
+          .sail-hero-shade {
+            position: relative;
+            display: flex;
+            padding: var(--ddd-spacing-0) var(--ddd-spacing-25);
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            gap: var(--ddd-spacing-3);
+            flex: 1 0 0;
+            align-self: stretch;
+            background: #01315f80;
+            box-sizing: border-box;
+          }
+
+        .sail-hero-text {
+            max-width: 718px;
+            width: fit-content;
+            color: #01315f;
+            font-family: var(--ddd-font-primary);
+            font-size: var(--ddd-font-size-xl);
+            font-style: normal;
+            font-weight: var(--ddd-font-weight-bold);
+            line-height: 1.15;
+            background: #FFEE86;
+            padding: var(--ddd-spacing-2) var(--ddd-spacing-4);
+          }
+
+        /* ── About Section ── */
+        .about-section {
+          display: flex;
+          width: 100%;
+          max-width: 1240px;
+          min-height: 382px;
+          padding: var(--ddd-spacing-10) var(--ddd-spacing-25);
+          flex-direction: column;
+          align-items: flex-start;
+          gap: var(--ddd-spacing-4);
+          flex-shrink: 0;
+          box-sizing: border-box;
+          margin: auto;
+        }
+
+        .about-heading {
+          color: light-dark(#ef4601, #ffee86);
+          font-family: var(--ddd-font-primary);
+          font-size: var(--ddd-font-size-l);
+          font-style: normal;
+          font-weight: var(--ddd-font-weight-bold);
+          line-height: normal;
+          margin: 0;
+        }
+
+        .about-body {
+          color: var(--ddd-color-text-primary);
+          font-family: var(--ddd-font-primary);
+          font-size: var(--ddd-font-size-s);
+          font-style: normal;
+          font-weight: var(--ddd-font-weight-normal);
+          line-height: 1.5;
+          margin: 0;
+        }
+
+        /* ── Tablet (≤ 900px) ── */
+        @media (max-width: 900px) {
+          .sail-hero-shade {
+            padding: 0 var(--ddd-spacing-12);
+          }
+
+          .about-section {
+            padding: var(--ddd-spacing-4) var(--ddd-spacing-25);
+          }
+        }
+
+        /* ── Mobile / iPhone (≤ 600px) ── */
+        @media (max-width: 600px) {
+          .sail-hero-pic {
+            height: 260px;
+          }
+
+          .sail-hero-shade {
+            padding: 0 var(--ddd-spacing-5);
+          }
+
+          .sail-hero-text {
+            width: 100%;
+          }
+
+          .about-section {
+            padding: var(--ddd-spacing-3) var(--ddd-spacing-4);
+          }
         }
       `,
     ];
@@ -52,7 +167,28 @@ export class WfHomePage extends DDDSuper(LitElement) {
   render() {
     return html`
       <div class="page-content">
-        <!-- Home page content goes here -->
+        <!-- Hero Banner -->
+        <div class="sail-hero-pic">
+          <div class="sail-hero-shade">
+            <p class="sail-hero-text">
+              Catch the Wind.<br />Find Your Course.
+            </p>
+          </div>
+        </div>
+
+        <!-- About Us Section -->
+        <div class="about-section">
+          <h2 class="about-heading">About Us</h2>
+          <p class="about-body">
+            Windward Force is a sailing league built for high school and college
+            clubs, as well as individual students, who want to get on the water,
+            learn fast, and race without the pressure of elite competition. We
+            focus on the fundamentals—boat handling, teamwork, and race
+            strategy—while keeping the experience social and accessible. Whether
+            you're brand new or building confidence, Windward Force gives you a
+            place to improve, compete, and find your love for sailing.
+          </p>
+        </div>
       </div>
     `;
   }

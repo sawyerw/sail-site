@@ -37,7 +37,7 @@ export class WfTeamsPage extends DDDSuper(LitElement) {
           width: 100%;
           min-height: 600px;
           box-sizing: border-box;
-          background: #ffffff;
+          background: light-dark(white, #01315f);
         }
 
         .page-content {
