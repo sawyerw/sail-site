@@ -84,7 +84,7 @@ export class WfHomePage extends DDDSuper(LitElement) {
           width: fit-content;
           color: white;
           font-family: var(--ddd-font-primary);
-          font-size: var(--ddd-font-size-xl);
+          font-size: var(--ddd-font-size-xxl);
           font-style: normal;
           font-weight: var(--ddd-font-weight-bold);
           line-height: 1.15;
