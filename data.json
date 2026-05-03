@@ -148,5 +148,98 @@
     "College of Charleston"
   ]
 }
-  ]
+  ],
+
+  "teams": [
+  {
+    "teamName": "Penn State Sailing Club",
+    "teamCity": "State College, PA",
+    "clubLocation": "Montour Marina",
+    "clubAddress": "4551 Royal Ave, Coraopolis, PA 15108",
+    "email": "psuclubsailing@psu.edu",
+    "instagram": "@psusailing",
+    "commodore": "Sawyer Wright",
+    "logo": "https://1000logos.net/wp-content/uploads/2021/07/Penn-State-Nittany-Lions-logo.png"
+  },
+  {
+    "teamName": "Lake Erie Community Sailing",
+    "teamCity": "Erie, PA",
+    "clubLocation": "Presque Isle Marina",
+    "clubAddress": "1 Peninsula Dr, Erie, PA 16505",
+    "email": "info@lecsailing.org",
+    "instagram": "@lecsailing",
+    "commodore": "Maya Torres",
+    "logo": "https://t3.ftcdn.net/jpg/01/76/26/92/360_F_176269228_UnrOgKCKP6ljfNV7TetPmt5fBkr2LmAf.jpg"
+  },
+  {
+    "teamName": "Temple University Sailing Club",
+    "teamCity": "Philadelphia, PA",
+    "clubLocation": "Delaware River Sailing Center",
+    "clubAddress": "25 S Columbus Blvd, Philadelphia, PA 19106",
+    "email": "templesailing@temple.edu",
+    "instagram": "@templesailing",
+    "commodore": "Jordan Lee",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Temple_T_logo.svg/1280px-Temple_T_logo.svg.png"
+  },
+  {
+    "teamName": "Three Rivers Yacht Club",
+    "teamCity": "Pittsburgh, PA",
+    "clubLocation": "Allegheny River Dock",
+    "clubAddress": "101 Riverfront Dr, Pittsburgh, PA 15222",
+    "email": "contact@threeriversyc.org",
+    "instagram": "@3riverssailing",
+    "commodore": "Evan Cole",
+    "logo": "https://static.wixstatic.com/media/ee07d5_e0f7aff8166e436ea42d9fbdb1c4e6d2~mv2.png"
+  },
+  {
+    "teamName": "Rutgers Coastal Sailing",
+    "teamCity": "New Brunswick, NJ",
+    "clubLocation": "Raritan Bay Marina",
+    "clubAddress": "201 Front St, Perth Amboy, NJ 08861",
+    "email": "rutgerssailing@rutgers.edu",
+    "instagram": "@rutgerssailing",
+    "commodore": "Lena Patel",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Rutgers_University_seal.svg"
+  },
+  {
+    "teamName": "Chesapeake Bay Community Sailing",
+    "teamCity": "Annapolis, MD",
+    "clubLocation": "Back Creek Harbor",
+    "clubAddress": "700 Edgewood Rd, Annapolis, MD 21403",
+    "email": "sail@cbcsailing.org",
+    "instagram": "@cbcsailing",
+    "commodore": "Noah Bennett",
+    "logo": "https://t4.ftcdn.net/jpg/05/38/79/85/360_F_538798550_0aNNgGGLm9z8bdTUurSrgK4c8Nk9j4Ub.jpg"
+  },
+  {
+    "teamName": "Ohio State Club Sailing",
+    "teamCity": "Columbus, OH",
+    "clubLocation": "Hoover Reservoir Marina",
+    "clubAddress": "7701 Sunbury Rd, Westerville, OH 43081",
+    "email": "osu.sailing@osu.edu",
+    "instagram": "@osusailing",
+    "commodore": "Avery Kim",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Ohio_State_Buckeyes_logo.svg"
+  },
+  {
+    "teamName": "Finger Lakes Sailing Collective",
+    "teamCity": "Ithaca, NY",
+    "clubLocation": "Cayuga Lake Inlet",
+    "clubAddress": "1100 Taughannock Blvd, Ithaca, NY 14850",
+    "email": "hello@flsailing.org",
+    "instagram": "@flsailing",
+    "commodore": "Sophie Grant",
+    "logo": "https://cdn.vectorstock.com/i/500p/17/81/sailing-yacht-logo-nautical-emblem-vector-28061781.jpg"
+  },
+  {
+    "teamName": "Coastal Carolina Sailing Club",
+    "teamCity": "Wilmington, NC",
+    "clubLocation": "Wrightsville Beach Marina",
+    "clubAddress": "1 Marina St, Wilmington, NC 28480",
+    "email": "ccsailing@coastal.org",
+    "instagram": "@ccsailing",
+    "commodore": "Dylan Hayes",
+    "logo": "https://static.wixstatic.com/media/318b91_aca70e2bf23f4f268bcbb479f6f63199~mv2.jpg"
+  }
+]
 }

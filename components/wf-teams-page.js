@@ -4,6 +4,7 @@
  */
 import { LitElement, html, css } from "lit";
 import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
+import "./wf-team-card.js"; 
 
 /**
  * `wf-teams-page`
@@ -18,14 +19,25 @@ export class WfTeamsPage extends DDDSuper(LitElement) {
     return "wf-teams-page";
   }
 
-  constructor() {
-    super();
-  }
-
   static get properties() {
     return {
       ...super.properties,
+      teams: { type: Array },
     };
+  }
+
+  constructor() {
+    super();
+    this.teams = [];
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    fetch("./data.json")
+      .then((r) => r.json())
+      .then((data) => {
+        this.teams = data.teams; 
+      });
   }
 
   static get styles() {
@@ -44,18 +56,25 @@ export class WfTeamsPage extends DDDSuper(LitElement) {
           width: 100%;
           min-height: 600px;
           box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: var(--ddd-spacing-5);
+          padding: var(--ddd-spacing-6);
         }
       `,
     ];
   }
 
   render() {
-    return html`
-      <div class="page-content">
-        <!-- Teams page content goes here -->
-      </div>
-    `;
-  }
+  return html`
+    <div class="page-content">
+      ${this.teams.map(
+        (team) => html`<wf-team-card .team=${team}></wf-team-card>`
+      )}
+    </div>
+  `;
+}
 }
 
 globalThis.customElements.define(WfTeamsPage.tag, WfTeamsPage);
