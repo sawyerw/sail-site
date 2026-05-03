@@ -111,9 +111,7 @@ export class WfHomePage extends DDDSuper(LitElement) {
           color: light-dark(#ef4601, #ffee86);
           font-family: var(--ddd-font-primary);
           font-size: var(--ddd-font-size-l);
-          font-style: normal;
           font-weight: var(--ddd-font-weight-bold);
-          line-height: normal;
           margin: var(--ddd-spacing-0);
         }
 
@@ -121,10 +119,6 @@ export class WfHomePage extends DDDSuper(LitElement) {
           color: var(--ddd-color-text-primary);
           font-family: var(--ddd-font-primary);
           font-size: var(--ddd-font-size-s);
-          font-style: normal;
-          font-weight: var(--ddd-font-weight-normal);
-          line-height: 1.5;
-          margin: 0;
         }
 
         /* ── Tablet (≤ 900px) ── */
