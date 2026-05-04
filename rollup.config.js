@@ -29,6 +29,10 @@ export default {
           dest: `public/`,
           flatten: false
         },
+        {
+          src: 'data.json',
+          dest: 'public/'
+        },
       ]}),
     /** Resolve bare module imports */
     nodeResolve(),
