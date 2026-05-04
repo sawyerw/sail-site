@@ -41,7 +41,7 @@ class WfFooterCredit extends DDDSuper(LitElement) {
 
         .footer-credit__text {
           width: 261px;
-          color: #fff;
+          color: white;
           font-family: var(--ddd-font-primary);
           font-size: var(--ddd-font-size-4xs);
           font-weight: var(--ddd-font-weight-bold);

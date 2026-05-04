@@ -111,7 +111,7 @@ export class WfDropDownMenu extends DDDSuper(LitElement) {
         /* ── Shared item base ── */
         .dropdown-item {
           display: block;
-          color: #ffffff;
+          color: white;
           text-decoration: none;
           font-family: var(--ddd-font-navigation, sans-serif);
           font-weight: var(--ddd-font-weight-bold);
@@ -172,7 +172,7 @@ export class WfDropDownMenu extends DDDSuper(LitElement) {
             flex-direction: column;
             min-width: 220px;
             border-top: 3px solid #ef4601;
-            right: 0;
+            right: var(--ddd-spacing-0);
             left: auto;
             white-space: nowrap;
             width: max-content;

@@ -25,7 +25,7 @@ class WfFooter extends DDDSuper(LitElement) {
         .footer {
           display: flex;
           width: 100%;
-          min-height: 220px;
+          min-height: 200px;
           flex-direction: column;
           justify-content: flex-end;
           align-items: flex-start;

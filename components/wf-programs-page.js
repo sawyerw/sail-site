@@ -43,10 +43,10 @@ export class WfProgramsPage extends DDDSuper(LitElement) {
         /* ── Page Layout ── */
         .page-content {
           display: flex;
-          padding: 30px;
+          padding: var(--ddd-spacing-8);
           flex-direction: column;
           align-items: center;
-          gap: 40px;
+          gap: var(--ddd-spacing-10);
           background: light-dark(white, #01315f);
           box-sizing: border-box;
           width: 100%;
@@ -60,7 +60,7 @@ export class WfProgramsPage extends DDDSuper(LitElement) {
           padding: var(--ddd-spacing-0) var(--ddd-spacing-10);
           justify-content: center;
           align-items: center;
-          gap: 25px;
+          gap: var(--ddd-spacing-7);
           box-sizing: border-box;
         }
 
@@ -68,10 +68,10 @@ export class WfProgramsPage extends DDDSuper(LitElement) {
         .youth-sailing-main-text {
           display: flex;
           width: 531px;
-          padding: 10px;
+          padding: var(--ddd-spacing-3);
           flex-direction: column;
           align-items: flex-start;
-          gap: 10px;
+          gap: var(--ddd-spacing-3);
           flex-shrink: 0;
           box-sizing: border-box;
         }
@@ -81,7 +81,7 @@ export class WfProgramsPage extends DDDSuper(LitElement) {
           font-family: var(--ddd-font-primary);
           font-size: var(--ddd-font-size-l);
           font-weight: var(--ddd-font-weight-bold);
-          margin: 0;
+          margin: var(--ddd-spacing-0);
         }
 
         .youth-subheading {
@@ -129,7 +129,7 @@ export class WfProgramsPage extends DDDSuper(LitElement) {
           background: #ffee86;
           box-sizing: border-box;
           border: none;
-          border-radius: 12px;
+          border-radius: var(--ddd-radius-md);
         }
 
         .register-btn:hover {
@@ -192,7 +192,7 @@ export class WfProgramsPage extends DDDSuper(LitElement) {
 
           .youth-sailing-main {
             flex-direction: column;
-            padding: 0;
+            padding: var(--ddd-spacing-0);
             gap: var(--ddd-spacing-4);
             width: 100%;
           }

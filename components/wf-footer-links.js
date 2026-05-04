@@ -90,7 +90,7 @@ class WfFooterLinks extends DDDSuper(LitElement) {
         .footer-links__pages {
           display: flex;
           flex-direction: column;
-          color: #ffffff;
+          color: white;
           text-align: right;
           font-family: var(--ddd-font-primary);
           font-size: var(--ddd-font-size-3xs);
